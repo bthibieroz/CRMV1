@@ -34,11 +34,11 @@ public class DaoFactory {
 	public ClientDao getClientDao() {
 		return new ClientDaoImpl( this );
 	}
-//	
-//	public CommandeDao getCommandeDao() {
-//		return new CommandeDaoImpl( this );
-//	}
-//	
+	
+	public CommandeDao getCommandeDao() {
+		return new CommandeDaoImpl( this );
+	}
+	
 	public UtilisateurDao getUtilisateurDao() {
 		return new UtilisateurDaoImpl( this );
 	}
