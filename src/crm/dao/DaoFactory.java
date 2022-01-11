@@ -39,9 +39,9 @@ public class DaoFactory {
 //		return new CommandeDaoImpl( this );
 //	}
 //	
-//	public UtilisateurDao getUtilisateurDao() {
-//		return new UtilisateurDaoImpl( this );
-//	}
+	public UtilisateurDao getUtilisateurDao() {
+		return new UtilisateurDaoImpl( this );
+	}
 
 	Connection getConnection() throws SQLException {
 		if ( this.con == null ) {

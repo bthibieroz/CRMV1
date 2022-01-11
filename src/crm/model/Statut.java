@@ -1,5 +1,5 @@
 package crm.model;
 
-public enum Satut {
+public enum Statut {
 EN_COURS, LIVREE, ANNULEE
 }
