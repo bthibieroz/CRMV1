@@ -13,10 +13,11 @@ import crm.model.Client;
 public class ClientDaoImpl implements ClientDao{
 	
 	private static final String SQL_INSERT       = "INSERT INTO (nom,prenom,entreprise,email,telephone,actif) VALUES(?,?,?,?,?,?)";
-	private static final String SQL_SELECT       = "SELECT id ,nom, prenom, entreprise, email, telephone,actif  FROM clients";
+	private static final String SQL_SELECT       = "SELECT id ,nom, prenom, entreprise, email, telephone, actif  FROM clients";
     private static final String SQL_SELECT_BY_ID = "SELECT id ,nom, prenom, entreprise, email, telephone, actif  FROM clients WHERE id = ?";
 	private static final String SQL_DELETE_BY_ID = "DELETE FROM clients WHERE id = ? ";
 	private static final String SQL_UPDATE_BY_ID = "UPDATE clients SET nom=?,prenom=?,entreprise=?,email=?, telephone=?,actif=? WHERE id = ?";
+	private static final String SQL_SELECT_BY_NOM = "SELECT id ,nom, prenom, entreprise, email, telephone, actif  FROM clients WHERE nom = ?";
 	
 	private DaoFactory factory;
 	
