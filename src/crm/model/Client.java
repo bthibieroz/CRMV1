@@ -1,7 +1,7 @@
 package crm.model;
 
 public class Client {
-	
+
 	private Long id;
 	private String nom;
 	private String prenom;
@@ -9,11 +9,11 @@ public class Client {
 	private String email;
 	private String telephone;
 	private boolean actif;
-	
-	public Client() {	
+
+	public Client() {
 	}
 
-	
+
 
 	public Client(String nom, String prenom, String entreprise, String email, String telephone, boolean actif) {
 		this.nom = nom;
@@ -81,12 +81,12 @@ public class Client {
 		this.actif = actif;
 	}
 
-	
+
 	@Override
 	public String toString() {
-		return "Client [nom=" + getNom() + ", prenom=" + prenom + ", entreprise=" + entreprise + ", email=" + email
-				+ ", telephone=" + telephone + ", actif=" + actif + "]";
+		return "Client "+getId()+ " : "+ getNom() + " " + prenom + " - Entreprise: " + entreprise + " | @: " + email
+				+ " | - tel: " + telephone;
 	}
 
-	
+
 }

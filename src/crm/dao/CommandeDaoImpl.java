@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
- 
 
 import crm.model.Commande;
 import crm.model.Statut;
-import crm.model.Commande;
 import crm.model.TypeCommande;
+
+
 
 public class CommandeDaoImpl implements CommandeDao {
 	private static final String SQL_INSERT       = "INSERT INTO Commandes (label,tjmHT,dureeJours,TVA,statut,typecommande,notes, idclient) VALUES(?,?,?,?,?,?,?,?)";
@@ -20,17 +20,15 @@ public class CommandeDaoImpl implements CommandeDao {
     private static final String SQL_SELECT_BY_ID = "SELECT id,label,tjmHT,dureeJours,TVA,statut,typecommande,notes, idclient FROM commandes WHERE id = ?";
 	private static final String SQL_DELETE_BY_ID = "DELETE FROM commandes WHERE id = ? ";
 	private static final String SQL_UPDATE_BY_ID = "UPDATE commandes SET label= ?,tjmHT=?,dureeJours= ?,TVA = ?,statut = ?,typecommande = ?,notes = ? , idclient= ? WHERE id= ?";
-	
+
 	//Optionnels
-		private static final String SQL_SELECT_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande WHERE idclient= ? ";
-		private static final String SQL_SELECT_ORDER_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY idClients";
-		
-		private static final String SQL_SELECT_ORDER_BY_TYPE = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY typeCommande";
-		
-		private static final String SQL_FIND_AND_SELECT_ORDER_BY_LABEL = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY label";
-	
+	private static final String SQL_SELECT_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande WHERE idclient= ? ";
+	private static final String SQL_SELECT_ORDER_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY idClients";
+	private static final String SQL_SELECT_ORDER_BY_TYPE = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY typeCommande";
+	private static final String SQL_FIND_AND_SELECT_ORDER_BY_LABEL = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY label";
+
 	private DaoFactory factory;
-	
+
 	public CommandeDaoImpl(DaoFactory factory) {
 		this.factory = factory;
 	}
@@ -40,7 +38,7 @@ public class CommandeDaoImpl implements CommandeDao {
 		Connection con=null;
 		try {
 			con = factory.getConnection();
-			
+
 			PreparedStatement pst = con.prepareStatement( SQL_INSERT, Statement.RETURN_GENERATED_KEYS );
 
 			pst.setString( 1, commande.getLabel() );
@@ -51,10 +49,10 @@ public class CommandeDaoImpl implements CommandeDao {
 			pst.setString( 6, commande.getTypeCommande().toString());
 			pst.setString( 7, commande.getNotes() );
 			pst.setLong( 8, commande.getClient().getId());
-			
-			
-			
-	
+
+
+
+
 			int stat = pst.executeUpdate();
 
             if ( stat == 0 ) {
@@ -68,17 +66,17 @@ public class CommandeDaoImpl implements CommandeDao {
             }
             rsKeys.close();
 			pst.close();
-			
+
 	    } catch(SQLException ex) {
 	    	throw new DaoException("Echec création commande",ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
-		
+
 	}
 
 	@Override
-	public Commande trouver(long id) throws DaoException {  
+	public Commande trouver(long id) throws DaoException {
 		Commande commande=null;
 		Connection        con=null;
 		PreparedStatement pst=null;
@@ -103,7 +101,7 @@ public class CommandeDaoImpl implements CommandeDao {
 
 	@Override
 	public List<Commande> lister() throws DaoException {
-		List<Commande> listeCommande = new ArrayList<Commande>();
+		List<Commande> listeCommande = new ArrayList<>();
 		Connection   con=null;
 		try {
 			  con = factory.getConnection();
@@ -120,7 +118,7 @@ public class CommandeDaoImpl implements CommandeDao {
 	    	factory.releaseConnection(con);
 		}
 		return listeCommande;
-		
+
 	}
 
 	@Override
@@ -140,20 +138,20 @@ public class CommandeDaoImpl implements CommandeDao {
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
-		
+
 	}
 
 	@Override
 	public void modifier(Commande commande) throws DaoException {
-		
-		Connection con = null; 
+
+		Connection con = null;
 		PreparedStatement pst=null;
-		
+
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement (SQL_UPDATE_BY_ID);
-		
-			
+
+
 			pst.setString( 1, commande.getLabel() );
 			pst.setFloat( 2, commande.getTjmHT() );
 			pst.setFloat( 3, commande.getDureeJours() );
@@ -166,21 +164,21 @@ public class CommandeDaoImpl implements CommandeDao {
 
 			int stat = pst.executeUpdate();
 			if ( stat == 0 ) {
-				  throw new DaoException("Erreur de modification de le Commande("+commande.getId()+")"); 
+				  throw new DaoException("Erreur de modification de le Commande("+commande.getId()+")");
 			  }
-			
+
 			pst.close();
-			
+
 		} catch(SQLException ex) {
 			throw new DaoException("Echec modification Commande",ex);
 		}
-		finally { 	
+		finally {
 			factory.releaseConnection(con);
 		}
-		
-		
+
+
 	}
-	
+
 	//fonctions optionnelles
 	@Override
 	public Commande trouverParClient(long id) throws DaoException {
@@ -205,11 +203,11 @@ public class CommandeDaoImpl implements CommandeDao {
 		}
 		return commande;
 	}
-	
-	@Override 
+
+	@Override
 	public List<Commande> listerParClient() throws DaoException {
-		List<Commande> listeCommande= new ArrayList<Commande>();
-		Connection con=null ; 
+		List<Commande> listeCommande= new ArrayList<>();
+		Connection con=null ;
 		try {
 			con=factory.getConnection();
 			PreparedStatement 	pst=con.prepareStatement(SQL_SELECT_ORDER_BY_CLIENT);
@@ -217,7 +215,7 @@ public class CommandeDaoImpl implements CommandeDao {
 			while ( rs.next() ) {
 		    	  listeCommande.add( map(rs) );
 		      }
-			
+
 			rs.close();
 		    pst.close();
 		} catch(SQLException ex) {
@@ -227,10 +225,10 @@ public class CommandeDaoImpl implements CommandeDao {
 		}
 		return listeCommande;
 	}
-	
-	@Override 
+
+	@Override
 	public List<Commande> listerParType () throws DaoException {
-		List<Commande> listeCommande= new ArrayList<Commande>();
+		List<Commande> listeCommande= new ArrayList<>();
 		Connection con=null;
 		try {
 			con=factory.getConnection();
@@ -239,9 +237,9 @@ public class CommandeDaoImpl implements CommandeDao {
 			while ( rs.next() ) {
 		    	  listeCommande.add( map(rs) );
 		    	//affichage des clients
-		    	  
+
 		      }
-			
+
 			rs.close();
 		    pst.close();
 		} catch(SQLException ex) {
@@ -251,10 +249,10 @@ public class CommandeDaoImpl implements CommandeDao {
 		}
 		return listeCommande;
 	}
-	
-	@Override 
+
+	@Override
 	public List<Commande> listerParLabel () throws DaoException {
-		List<Commande> listeCommande= new ArrayList<Commande>();
+		List<Commande> listeCommande= new ArrayList<>();
 		Connection con=null;
 		try {
 			con=factory.getConnection();
@@ -272,7 +270,7 @@ public class CommandeDaoImpl implements CommandeDao {
 		}
 		return listeCommande;
 	}
-	
+
 	 private static Commande map( ResultSet resultSet ) throws SQLException, DaoException {
 		    ClientDao clientDao = DaoFactory.getInstance().getClientDao();
 	        Commande c = new Commande();
@@ -281,22 +279,22 @@ public class CommandeDaoImpl implements CommandeDao {
 	        c.setTjmHT( resultSet.getFloat( "tjmHT" ) );
 	        c.setDureeJours( resultSet.getFloat( "dureejours" ) );
 	        c.setTVA( resultSet.getFloat( "TVA" ) );
-	        
+
 	        for(TypeCommande s : TypeCommande.values()) {
 	        	if(resultSet.getString("typeCommande").equals(s.toString())) {
 	        		c.setTypeCommande(s);
 	        	}
 	        }
-	       
+
 	        for(Statut s : Statut.values()) {
 	        	if(resultSet.getString("statut").equals(s.toString())) {
 	        		c.setStatut(s);
 	        	}
 	        }
-	        
+
 	        c.setNotes( resultSet.getString( "notes" ) );
 	        c.setClient( clientDao.trouver( resultSet.getLong("idclient") ));
-	        
+
 	        return c;
 	    }
 

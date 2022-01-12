@@ -6,7 +6,7 @@ import crm.model.Utilisateur;
 
 public interface UtilisateurDao {
 
-	
+
 	void         creer( Utilisateur utilisateur ) throws DaoException;
 
     Utilisateur       trouver( long id ) throws DaoException;
