@@ -86,7 +86,28 @@ public class ClientDaoImpl implements ClientDao{
 		return client;
 		
 	}
-	
+
+	@Override
+	public List<Client> lister() throws DaoException {
+		List<Client> listeClient = new ArrayList<Client>();
+		Connection   con=null;
+		try {
+			  con = factory.getConnection();
+			  PreparedStatement pst = con.prepareStatement( SQL_SELECT );
+		      ResultSet         rs  = pst.executeQuery();
+		      while ( rs.next() ) {
+		    	  listeClient.add( map(rs) );
+		      }
+		      rs.close();
+		      pst.close();
+	    } catch(SQLException ex) {
+	    	throw new DaoException("Erreur de lecture BDD Client", ex);
+	    } finally {
+	    	factory.releaseConnection(con);
+		}
+		return listeClient;
+	}
+
 	@Override
 	public Client trouver(String nom) throws DaoException {
 		Client           client=null;
@@ -109,27 +130,6 @@ public class ClientDaoImpl implements ClientDao{
 	    	factory.releaseConnection(con);
 		}
 		return client;
-	}
-
-	@Override
-	public List<Client> lister() throws DaoException {
-		List<Client> listeClient = new ArrayList<Client>();
-		Connection   con=null;
-		try {
-			  con = factory.getConnection();
-			  PreparedStatement pst = con.prepareStatement( SQL_SELECT );
-		      ResultSet         rs  = pst.executeQuery();
-		      while ( rs.next() ) {
-		    	  listeClient.add( map(rs) );
-		      }
-		      rs.close();
-		      pst.close();
-	    } catch(SQLException ex) {
-	    	throw new DaoException("Erreur de lecture BDD Client", ex);
-	    } finally {
-	    	factory.releaseConnection(con);
-		}
-		return listeClient;
 	}
 
 	@Override
