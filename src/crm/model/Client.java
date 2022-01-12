@@ -8,22 +8,12 @@ public class Client {
 	private String entreprise;
 	private String email;
 	private String telephone;
-	private String mobile;
 	private boolean actif;
 	
 	public Client() {	
 	}
 
-	public Client(String nom, String prenom, String entreprise, String email, String telephone, String mobile,
-			boolean actif) {
-		this.nom = nom;
-		this.prenom = prenom;
-		this.entreprise = entreprise;
-		this.email = email;
-		this.telephone = telephone;
-		this.mobile = mobile;
-		this.actif = actif;
-	}
+	
 
 	public Client(String nom, String prenom, String entreprise, String email, String telephone, boolean actif) {
 		this.nom = nom;
@@ -82,13 +72,6 @@ public class Client {
 		this.telephone = telephone;
 	}
 
-	public String getMobile() {
-		return mobile;
-	}
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
 
 	public boolean getActif() {
 		return actif;
@@ -102,7 +85,7 @@ public class Client {
 	@Override
 	public String toString() {
 		return "Client [nom=" + getNom() + ", prenom=" + prenom + ", entreprise=" + entreprise + ", email=" + email
-				+ ", telephone=" + telephone + ", mobile=" + this.mobile + ", actif=" + actif + "]";
+				+ ", telephone=" + telephone + ", actif=" + actif + "]";
 	}
 
 	
