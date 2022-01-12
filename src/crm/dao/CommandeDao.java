@@ -14,5 +14,13 @@ public interface CommandeDao {
     void         supprimer( long id ) throws DaoException;
 
     void		 modifier(Commande commande) throws DaoException;
+    
+    Commande 	trouverParClient(long id) throws DaoException;
+    
+    List<Commande> listerParClient() throws DaoException;
+    
+    List<Commande> listerParType() throws DaoException;
+    
+    List<Commande> listerParLabel() throws DaoException;
 
 }

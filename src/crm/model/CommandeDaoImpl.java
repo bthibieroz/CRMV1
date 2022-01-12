@@ -5,9 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import fr.cleverdev.dao.DaoException;
-import fr.cleverdev.dao.DaoFactory;
-import fr.cleverdev.model.Auteur;
+import crm.dao.CommandeDao;
+
 
 public class CommandeDaoImpl implements CommandeDao {
 	
