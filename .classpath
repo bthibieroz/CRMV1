@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Biblio/RESSOURCES/postgresql-42.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/jdjad/eclipse-workspace/Biblio_auteur/RESSOURCES/postgresql-42.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
