@@ -12,12 +12,12 @@ import crm.model.Client;
 
 public class ClientDaoImpl implements ClientDao{
 	
-	private static final String SQL_INSERT       = "INSERT INTO (nom,prenom,entreprise,email,telephone,mobile,actif) VALUES(?,?,?,?,?,?,?)";
-	private static final String SQL_SELECT       = "SELECT id ,nom, prenom, entreprise, email, telephone, mobile, actif  FROM clients";
-    private static final String SQL_SELECT_BY_ID = "SELECT id ,nom, prenom, entreprise, email, telephone, mobile, actif  FROM clients WHERE id = ?";
+	private static final String SQL_INSERT       = "INSERT INTO (nom,prenom,entreprise,email,telephone,actif) VALUES(?,?,?,?,?,?)";
+	private static final String SQL_SELECT       = "SELECT id ,nom, prenom, entreprise, email, telephone, actif  FROM clients";
+    private static final String SQL_SELECT_BY_ID = "SELECT id ,nom, prenom, entreprise, email, telephone, actif  FROM clients WHERE id = ?";
 	private static final String SQL_DELETE_BY_ID = "DELETE FROM clients WHERE id = ? ";
-	private static final String SQL_UPDATE_BY_ID = "UPDATE clients SET nom=?,prenom=?,entreprise=?,email=?, telephone=?, mobile=?,actif=? WHERE id = ?";
-	private static final String SQL_SELECT_BY_NOM = "SELECT id ,nom, prenom, entreprise, email, telephone, mobile, actif  FROM clients WHERE nom = ?";
+	private static final String SQL_UPDATE_BY_ID = "UPDATE clients SET nom=?,prenom=?,entreprise=?,email=?, telephone=?,actif=? WHERE id = ?";
+	private static final String SQL_SELECT_BY_NOM = "SELECT id ,nom, prenom, entreprise, email, telephone, actif  FROM clients WHERE nom = ?";
 	
 	private DaoFactory factory;
 	
@@ -38,8 +38,7 @@ public class ClientDaoImpl implements ClientDao{
 			pst.setString( 3, client.getEntreprise() );
 			pst.setString( 4, client.getEmail() );
 			pst.setString( 5, client.getTelephone() );
-			pst.setString( 6, client.getMobile() );
-			pst.setBoolean( 7, client.getActif() );
+			pst.setBoolean( 6, client.getActif() );
 			
 			int statut = pst.executeUpdate();
 
@@ -166,9 +165,8 @@ public class ClientDaoImpl implements ClientDao{
 			pst.setString( 3, client.getEntreprise() );
 			pst.setString( 4, client.getEmail() );
 			pst.setString( 5, client.getTelephone() );
-			pst.setString( 6, client.getMobile() );
-			pst.setBoolean( 7, client.getActif() );
-			pst.setLong(8, client.getId());
+			pst.setBoolean( 6, client.getActif() );
+			pst.setLong(7, client.getId());
 
 			int statut = pst.executeUpdate();
 			if ( statut == 0 ) {
@@ -194,7 +192,6 @@ public class ClientDaoImpl implements ClientDao{
         c.setEntreprise( resultSet.getString( "entreprise" ) );
         c.setEmail( resultSet.getString( "email" ) );
         c.setTelephone( resultSet.getString( "telephone" ) );
-        c.setMobile( resultSet.getString( "mobile" ) );
         c.setActif( resultSet.getBoolean( "actif" ) );
         
         return c;

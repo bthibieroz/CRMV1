@@ -25,7 +25,7 @@ public class Launcher {
 		List<Commande> listeCommande;
 		List<Utilisateur> listeUtilisateur;
 		int compteur = 0;
-		boolean pgr;
+		boolean pgr=true;
 		boolean menu;
 		Scanner sc = new Scanner(System.in);
 		String choix;
@@ -152,7 +152,7 @@ public class Launcher {
 							System.out.println("\n saisir un numéro de téléphone :");
 							telephone = sc.nextLine();
 							
-							clientDao.creer(new Client(nom,prenom,entreprise,email,telephone));
+							clientDao.creer(new Client(nom,prenom,entreprise,email,telephone,true));
 							
 							System.out.println("\n Votre commande a bien été créée.");
 							
