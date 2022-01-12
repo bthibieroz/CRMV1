@@ -8,6 +8,8 @@ public interface ClientDao {
 	void         creer( Client client ) throws DaoException;
 
     Client       trouver( long id ) throws DaoException;
+    Client       trouver( String nom ) throws DaoException;
+    
 
     List<Client> lister() throws DaoException;
 
