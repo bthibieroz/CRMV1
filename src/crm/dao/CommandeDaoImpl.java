@@ -21,6 +21,14 @@ public class CommandeDaoImpl implements CommandeDao {
 	private static final String SQL_DELETE_BY_ID = "DELETE FROM commandes WHERE id = ? ";
 	private static final String SQL_UPDATE_BY_ID = "UPDATE commandes SET label= ?,tjmHT=?,dureeJours= ?,TVA = ?,statut = ?,typecommande = ?,notes = ? , idclient= ? WHERE id= ?";
 	
+	//Optionnels
+		private static final String SQL_SELECT_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande WHERE idclient= ? ";
+		private static final String SQL_SELECT_ORDER_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY idClients";
+		
+		private static final String SQL_SELECT_ORDER_BY_TYPE = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY typeCommande";
+		
+		private static final String SQL_FIND_AND_SELECT_ORDER_BY_LABEL = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY label";
+	
 	private DaoFactory factory;
 	
 	public CommandeDaoImpl(DaoFactory factory) {
@@ -173,6 +181,97 @@ public class CommandeDaoImpl implements CommandeDao {
 		
 	}
 	
+	//fonctions optionnelles
+	@Override
+	public Commande trouverParClient(long id) throws DaoException {
+		Commande          commande=null;
+		Connection        con=null;
+		PreparedStatement pst=null;
+		ResultSet         rs=null;
+		try {
+			  con = factory.getConnection();
+			  pst = con.prepareStatement( SQL_SELECT_BY_CLIENT );
+			  pst.setLong(1, id);
+		      rs  = pst.executeQuery();
+		      if ( rs.next() ) {
+		    	  commande = map(rs);
+		      }
+		      rs.close();
+		      pst.close();
+	    } catch(SQLException ex) {
+	    	throw new DaoException("Commande non trouvée. Verifiez que l'id est juste", ex);
+	    } finally {
+	    	factory.releaseConnection(con);
+		}
+		return commande;
+	}
+	
+	@Override 
+	public List<Commande> listerParClient() throws DaoException {
+		List<Commande> listeCommande= new ArrayList<Commande>();
+		Connection con=null ; 
+		try {
+			con=factory.getConnection();
+			PreparedStatement 	pst=con.prepareStatement(SQL_SELECT_ORDER_BY_CLIENT);
+			ResultSet 			rs= pst.executeQuery();
+			while ( rs.next() ) {
+		    	  listeCommande.add( map(rs) );
+		      }
+			
+			rs.close();
+		    pst.close();
+		} catch(SQLException ex) {
+	    	throw new DaoException("Erreur de lecture des commandes", ex);
+	    } finally {
+	    	factory.releaseConnection(con);
+		}
+		return listeCommande;
+	}
+	
+	@Override 
+	public List<Commande> listerParType () throws DaoException {
+		List<Commande> listeCommande= new ArrayList<Commande>();
+		Connection con=null;
+		try {
+			con=factory.getConnection();
+			PreparedStatement 	pst=con.prepareStatement(SQL_SELECT_ORDER_BY_TYPE);
+			ResultSet 			rs= pst.executeQuery();
+			while ( rs.next() ) {
+		    	  listeCommande.add( map(rs) );
+		    	//affichage des clients
+		    	  
+		      }
+			
+			rs.close();
+		    pst.close();
+		} catch(SQLException ex) {
+	    	throw new DaoException("Erreur de lecture des commandes", ex);
+	    } finally {
+	    	factory.releaseConnection(con);
+		}
+		return listeCommande;
+	}
+	
+	@Override 
+	public List<Commande> listerParLabel () throws DaoException {
+		List<Commande> listeCommande= new ArrayList<Commande>();
+		Connection con=null;
+		try {
+			con=factory.getConnection();
+			PreparedStatement 	pst=con.prepareStatement(SQL_FIND_AND_SELECT_ORDER_BY_LABEL);
+			ResultSet 			rs= pst.executeQuery();
+			while ( rs.next() ) {
+		    	  listeCommande.add( map(rs) );
+		      }
+			rs.close();
+		    pst.close();
+		} catch(SQLException ex) {
+	    	throw new DaoException("Erreur de lecture des commandes", ex);
+	    } finally {
+	    	factory.releaseConnection(con);
+		}
+		return listeCommande;
+	}
 	
 	 private static Commande map( ResultSet resultSet ) throws SQLException, DaoException {
 		    ClientDao clientDao = DaoFactory.getInstance().getClientDao();
