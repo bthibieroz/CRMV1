@@ -23,7 +23,7 @@ public class CommandeDaoImpl implements CommandeDao {
 
 	//Optionnels
 	private static final String SQL_SELECT_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande WHERE idclient= ? ";
-	private static final String SQL_SELECT_ORDER_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY idClients";
+	private static final String SQL_SELECT_ORDER_BY_CLIENT = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY idclient";
 	private static final String SQL_SELECT_ORDER_BY_TYPE = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY typeCommande";
 	private static final String SQL_FIND_AND_SELECT_ORDER_BY_LABEL = "SELECT id, label, tjmHT,dureeJours,TVA,statut,typeCommande,notes FROM Commande ORDER BY label";
 

@@ -20,7 +20,7 @@ public class Commande {
 		this.label = label;
 		this.tjmHT = tjmHT;
 		this.dureeJours = dureeJours;
-		TVA = tVA;
+		this.TVA = tVA;
 		this.statut = statut;
 		this.typeCommande = typeCommande;
 		this.client = client;
@@ -101,9 +101,9 @@ public class Commande {
 
 	@Override
 	public String toString() {
-		return "Commande [id=" + id + ", label=" + label + ", tjmHT=" + tjmHT + ", dureeJours=" + dureeJours + ", TVA="
-				+ TVA + ", statut=" + statut + ", typeCommande=" + typeCommande + ", notes=" + notes + ", client="
-				+ client + "]";
+		return "Commande " +id + " : " + label + " de " + getDureeJours() + " jours à " + tjmHT +"€/j. (TVA: "
+				+ TVA + "%) | Client : "
+				+ getClient().getNom() + " " + getClient().getPrenom();
 	}
 
 }

@@ -3,7 +3,6 @@ package crm.launcher;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-
 import crm.dao.ClientDao;
 import crm.dao.CommandeDao;
 import crm.dao.DaoException;
@@ -36,28 +35,31 @@ public class Launcher {
 
 		while(pgr) {
 			menu=true;
-				while(true) {
-					System.out.println("\n--------------");
-					System.out.println("MENU PRINCIPAL");
-					System.out.println("--------------");
-					System.out.println("\nQue souhaitez vous faire ?\n");
-					System.out.println("Aller dans le menu COMMANDES, entrez 'COM'");
-					System.out.println("Aller dans le menu CLIENTS, entrez 'CLI'");
-					System.out.println("Quittez ? entrez 'q'\n");
+			while(true) {
+				System.out.println("\n--------------");
+				System.out.println("MENU PRINCIPAL");
+				System.out.println("--------------");
+				System.out.println("\nQue souhaitez vous faire ?\n");
+				System.out.println("Aller dans le menu COMMANDES, entrez 'COM'");
+				System.out.println("Aller dans le menu CLIENTS, entrez 'CLI'");
+				System.out.println("Quittez ? entrez 'q'\n");
 
-					choix = sc.nextLine();
+				choix = sc.nextLine();
+				
+				if((choix.equalsIgnoreCase("q")) || (choix.equalsIgnoreCase("com")) || (choix.equalsIgnoreCase("cli"))) {
+					break;
 					
-					if((choix.equalsIgnoreCase("q")) || (choix.equalsIgnoreCase("com")) || (choix.equalsIgnoreCase("cli"))) {
-						break;
-						
-					}
-						System.out.println("\nJe n'ai pas compris votre réponse\n");
-					}
+				}
+					System.out.println("\nJe n'ai pas compris votre réponse\n");
+				}
 
 				// passer dans le menu commande
 			if(choix.equalsIgnoreCase("com")){
 				while(true) {
-					System.out.println("\n Créer une commande ? (C), Afficher les commandes (A), Rechercher une commande (R)");
+					System.out.println("\n---------------");
+					System.out.println("--MENU COMMANDE--");
+					System.out.println("---------------\n");
+					System.out.println("Créer une commande ? (C), Afficher les commandes (A), Rechercher une commande (R)");
 					System.out.println("Menu principal (menu) / Quitter (q)");
 
 					choix =sc.nextLine();
@@ -88,7 +90,7 @@ public class Launcher {
 						// attention a vérifier que le client existe pour utiliser l'id
 						commandeDao.creer(new Commande(label,tjmHT,dureeJours,TVA,Statut.NOUVELLE,TypeCommande.EN_LIGNE,client));
 
-						System.out.println("\n Votre commande a bien été créée.");
+						System.out.println("\nVotre commande a bien été créée.");
 
 					} catch(DaoException e) {
 						e.printStackTrace();
@@ -103,7 +105,7 @@ public class Launcher {
 						compteur ++;
 						System.out.println(i.next());
 					}
-					System.out.println(" Il y'a " + compteur + " Commandes dans la liste.");
+					System.out.println("\n->Il y'a " + compteur + " Commandes dans la liste.");
 
 					}catch(DaoException e) {
 						e.printStackTrace();
@@ -111,10 +113,10 @@ public class Launcher {
 				}
 				else if(choix.equalsIgnoreCase("R")) {
 					try{
-					System.out.println("\n Saisir l'ID de la commande :");
-					Long id = Long.parseLong(sc.nextLine());
-					Commande com = commandeDao.trouver(id);
-					System.out.println(com);
+						System.out.println("\n Saisir l'ID de la commande :");
+						Long id = Long.parseLong(sc.nextLine());
+						Commande com = commandeDao.trouver(id);
+						System.out.println(com);
 					} catch (DaoException e) {
 						e.printStackTrace();
 					}
@@ -131,7 +133,10 @@ public class Launcher {
 			//passer dans le menu client
 			else if (choix.equalsIgnoreCase("cli")) {
 				while(true) {
-					System.out.println("\nCréer un client ? (C), Afficher les clients (A), Rechercher un client (R)");
+					System.out.println("\n---------------");
+					System.out.println("--MENU CLIENT--");
+					System.out.println("---------------\n");
+					System.out.println("Créer un client ? (C), Afficher les clients (A), Rechercher un client (R)");
 					System.out.println("Menu principal (menu) / Quitter (q)");
 
 					choix =sc.nextLine();
