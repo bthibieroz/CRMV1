@@ -84,6 +84,7 @@ public class ClientDaoImpl implements ClientDao{
 	    	factory.releaseConnection(con);
 		}
 		return client;
+		
 	}
 	
 	@Override
