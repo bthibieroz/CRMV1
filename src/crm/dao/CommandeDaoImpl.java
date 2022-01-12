@@ -42,13 +42,13 @@ public class CommandeDaoImpl implements CommandeDao {
 			pst.setString( 5, commande.getTypeCommande().toString());
 			pst.setString( 6, commande.getNotes() );
 			pst.setString( 7, commande.getStatut().toString() );
-			pst.setLong( 7, commande.getId());
+			pst.setLong( 8, commande.getId());
 			
 			
 	
-			int statut = pst.executeUpdate();
+			int stat = pst.executeUpdate();
 
-            if ( statut == 0 ) {
+            if ( stat == 0 ) {
                 throw new DaoException( "Echec création commande (aucun ajout)" );
             }
             ResultSet rsKeys = pst.getGeneratedKeys();
@@ -106,7 +106,7 @@ public class CommandeDaoImpl implements CommandeDao {
 		      rs.close();
 		      pst.close();
 	    } catch(SQLException ex) {
-	    	throw new DaoException("Erreur de lecture BDD Client", ex);
+	    	throw new DaoException("Erreur de lecture BDD Commande", ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
@@ -121,8 +121,8 @@ public class CommandeDaoImpl implements CommandeDao {
 			  con = factory.getConnection();
 			  PreparedStatement pst = con.prepareStatement( SQL_DELETE_BY_ID );
 			  pst.setLong(1, id);
-			  int statut = pst.executeUpdate();
-			  if ( statut == 0 ) {
+			  int stat = pst.executeUpdate();
+			  if ( stat == 0 ) {
 				  throw new DaoException("Erreur de suppression Commande("+id+")");
 			  }
 		      pst.close();
@@ -137,35 +137,35 @@ public class CommandeDaoImpl implements CommandeDao {
 	@Override
 	public void modifier(Commande commande) throws DaoException {
 		
-	/*	Connection con = null; 
+		Connection con = null; 
 		PreparedStatement pst=null;
 		
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement (SQL_UPDATE_BY_ID);
 
-			pst.setString( 1, client.getNom() );
-			pst.setString( 2, client.getPrenom() );
-			pst.setString( 3, client.getEntreprise() );
-			pst.setString( 4, client.getEmail() );
-			pst.setString( 5, client.getTelephone() );
-			pst.setString( 6, client.getMobile() );
-			pst.setBoolean( 7, client.getActif() );
-			pst.setLong(8, client.getId());
+			pst.setString( 1, commande.getLabel() );
+			pst.setFloat( 2, commande.getTjmHT() );
+			pst.setFloat( 3, commande.getDureeJours() );
+			pst.setFloat( 4, commande.getTVA());
+			pst.setString( 5, commande.getTypeCommande().toString());
+			pst.setString( 6, commande.getNotes() );
+			pst.setString( 7, commande.getStatut().toString() );
+			pst.setLong( 8, commande.getId());
 
-			int statut = pst.executeUpdate();
-			if ( statut == 0 ) {
-				  throw new DaoException("Erreur de modification de le Client("+client.getId()+")"); 
+			int stat = pst.executeUpdate();
+			if ( stat == 0 ) {
+				  throw new DaoException("Erreur de modification de le Commande("+commande.getId()+")"); 
 			  }
 			
 			pst.close();
 			
 		} catch(SQLException ex) {
-			throw new DaoException("Echec modification Auteur",ex);
+			throw new DaoException("Echec modification Commande",ex);
 		}
 		finally { 	
 			factory.releaseConnection(con);
-		} */
+		}
 		
 		
 	}
