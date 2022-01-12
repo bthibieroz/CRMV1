@@ -1,15 +1,15 @@
 package crm.model;
 
 public class Utilisateur {
-	
+
 	private Long id;
 	private String login;
 	private String motDePasse;
 	private String email;
-	
+
 	public Utilisateur() {
 	}
-	
+
 	public Utilisateur(String login, String motDePasse, String email) {
 		this.login = login;
 		this.motDePasse = motDePasse;
@@ -52,7 +52,7 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [id=" + id + ", login=" + login + ", motDePasse=" + motDePasse + ", email=" + email + "]";
 	}
-	
 
-	
+
+
 }

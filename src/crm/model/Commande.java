@@ -11,7 +11,7 @@ public class Commande {
 	private TypeCommande typeCommande;
 	private String notes;
 	private Client client;
-	
+
 	public Commande() {
 	}
 
@@ -26,7 +26,7 @@ public class Commande {
 		this.client = client;
 	}
 
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -105,5 +105,5 @@ public class Commande {
 				+ TVA + ", statut=" + statut + ", typeCommande=" + typeCommande + ", notes=" + notes + ", client="
 				+ client + "]";
 	}
-		
+
 }

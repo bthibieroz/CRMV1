@@ -7,29 +7,30 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 import crm.model.Utilisateur;
 
 public class UtilisateurDaoImpl implements UtilisateurDao {
-	
-	private static final String SQL_INSERT       = "INSERT INTO (login,motdepasse,email) VALUES(?,?,?)";
+
+	private static final String SQL_INSERT       = "INSERT INTO utilisateurs (login,motdepasse,email) VALUES(?,?,?)";
 	private static final String SQL_SELECT       = "SELECT id,login,motdepasse,email FROM utilisateurs";
     private static final String SQL_SELECT_BY_ID = "SELECT id,login,motdepasse,email FROM utilisateurs WHERE id = ?";
 	private static final String SQL_DELETE_BY_ID = "DELETE FROM utilisateurs WHERE id = ? ";
 	private static final String SQL_UPDATE_BY_ID = "UPDATE utilisateurs SET login=?,motdepasse=?,email=? WHERE id = ?";
-	
+
 
 	private DaoFactory factory;
-	
+
 	public UtilisateurDaoImpl(DaoFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	@Override
 	public void creer(Utilisateur utilisateur) throws DaoException {
 		Connection con=null;
 		try {
 			con = factory.getConnection();
-			
+
 			PreparedStatement pst = con.prepareStatement( SQL_INSERT, Statement.RETURN_GENERATED_KEYS );
 
 			pst.setString( 1, utilisateur.getLogin() );
@@ -49,13 +50,13 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
             }
             rsKeys.close();
 			pst.close();
-			
+
 	    } catch(SQLException ex) {
 	    	throw new DaoException("Echec création Utilisateur",ex);
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
-		
+
 	}
 
 	@Override
@@ -84,7 +85,7 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 	@Override
 	public List<Utilisateur> lister() throws DaoException {
-		List<Utilisateur> listeUtilisateur = new ArrayList<Utilisateur>();
+		List<Utilisateur> listeUtilisateur = new ArrayList<>();
 		Connection   con=null;
 		try {
 			  con = factory.getConnection();
@@ -120,14 +121,14 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 	    } finally {
 	    	factory.releaseConnection(con);
 		}
-		
+
 	}
 
 	@Override
 	public void modifier(Utilisateur utilisateur) throws DaoException {
-		Connection con = null; 
+		Connection con = null;
 		PreparedStatement pst=null;
-		
+
 		try {
 			con = factory.getConnection();
 			pst = con.prepareStatement (SQL_UPDATE_BY_ID);
@@ -139,18 +140,18 @@ public class UtilisateurDaoImpl implements UtilisateurDao {
 
 			int statut = pst.executeUpdate();
 			if ( statut == 0 ) {
-				  throw new DaoException("Erreur de modification de le Utilisateur("+utilisateur.getId()+")"); 
+				  throw new DaoException("Erreur de modification de le Utilisateur("+utilisateur.getId()+")");
 			  }
-			
+
 			pst.close();
-			
+
 		} catch(SQLException ex) {
 			throw new DaoException("Echec modification Auteur",ex);
 		}
-		finally { 	
+		finally {
 			factory.releaseConnection(con);
 		}
-		
+
 	}
 
 	private static Utilisateur map( ResultSet resultSet ) throws SQLException {
